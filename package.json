@@ -1,0 +1,38 @@
+{
+  "name": "brawl-auditor",
+  "version": "1.0.0",
+  "description": "This is a discord bot application, for brawl stars servers.",
+  "main": "bot.js",
+  "dependencies": {
+    "bufferutil": "^4.0.1",
+    "common-tags": "^1.8.0",
+    "crypto": "^1.0.1",
+    "curl": "^0.1.4",
+    "discord.js": "^12.2.0",
+    "escape-string-regexp": "^4.0.0",
+    "express": "^4.17.1",
+    "fast-sort": "^2.2.0",
+    "fs": "^0.0.1-security",
+    "fstorm": "^0.1.3",
+    "install": "^0.13.0",
+    "jsonpath-plus": "^4.0.0",
+    "ms": "^2.1.2",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0",
+    "node-schedule": "^1.3.2",
+    "nodemon": "^2.0.4",
+    "opusscript": "0.0.7",
+    "path": "^0.12.7",
+    "replace-string": "^3.1.0",
+    "request": "^2.88.2",
+    "utf-8-validate": "^5.0.2",
+    "valid-url": "^1.0.9",
+    "ytdl-core": "^3.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon bot.js"
+  },
+  "author": "Vinayak#0001",
+  "license": "ISC"
+}
