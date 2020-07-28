@@ -18,6 +18,7 @@ fs.readdir("./data/commands/", (err, files) => {
         Bot.commands.set(props.help.name, props);
     });
 });
+
 Bot.on('ready', () => {
     console.log(`logged in as ${Bot.user.tag} !`);
     Bot.user.setPresence({activity: {name: 'Under construction',type: 'WATCHING'}, status: 'online'})
@@ -34,7 +35,7 @@ Bot.on('message', async (msg) => {
     let args = msgArray.slice(1);
 
     let cmdFile = Bot.commands.get(cmd.slice(prefix.length));
-    if(cmdFile) cmdFile.run(Bot,msg,args);
+    if(cmdFile) cmdFile.run(Bot,msg,args,settings);
 
 })
 Bot.login(settings.tokenFirst);
