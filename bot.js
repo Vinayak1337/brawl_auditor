@@ -1,41 +1,32 @@
-const settings = require('./data/keys/settings.json')
+const settings = require('./data/keys/settings');
+const tokens = require('./data/keys/tokens');
 const Discord = require('discord.js');
-const Bot = new Discord.Client();
+const Bot = client = new Discord.Client({
+    shards:"auto",
+    messageCacheMaxSize: Infinity,
+    messageCacheLifetime: 604800,
+    messageSweepInterval: 60,
+    fetchAllMembers: true,
+    retryLimit: 3,
+    
+});
 const fs = require('fs');
+const errEm = new Discord.MessageEmbed()
+                  .setColor('RED');
+                  
 Bot.commands = new Discord.Collection();
+Bot.aliases = new Discord.Collection();
+Bot.limits = new Map();
+Bot.settings = settings;
+Bot.tokens = tokens;
+Bot.errEm = errEm;
+Bot.apiInt = 1;
 
-fs.readdir("./data/commands/", (err, files) => {
-    if(err) console.log(err);
+const commands = require('./data/structures/command');
+commands.run(Bot);
 
-    let jsFiles = files.filter(f => f.split('.').pop() === 'js')
-    if(jsFiles.length <= 0){
-        console.log("Couldn't find commands files!");
-        return;
-    }
-    jsFiles.forEach((f, i) => {
-        let props = require(`./data/commands/${f}`);
-        console.log(`${f} loaded!`);
-        Bot.commands.set(props.help.name, props);
-    });
-});
+const events = require("./data/structures/event");
+events.run(Bot);
 
-Bot.on('ready', () => {
-    console.log(`logged in as ${Bot.user.tag} !`);
-    Bot.user.setPresence({activity: {name: 'Under construction',type: 'WATCHING'}, status: 'online'})
-});
 
-Bot.on('message', async (msg) => {
-    let prefix = settings.tag;
-
-    if(msg.author.bot) return;
-    if(!msg.content.startsWith(prefix)) return;
-
-    let msgArray = msg.content.split(' ');
-    let cmd = msgArray[0];
-    let args = msgArray.slice(1);
-
-    let cmdFile = Bot.commands.get(cmd.slice(prefix.length));
-    if(cmdFile) cmdFile.run(Bot,msg,args,settings);
-
-})
 Bot.login(settings.tokenFirst);
